@@ -20,9 +20,7 @@ export default class Home extends Component {
                 <div>
                     <h1>Home</h1>
                 </div>
-                <div>
-                    {this.test()}
-                </div>
+                {this.mapMovies()}
             </div>
         )
     }
@@ -35,7 +33,7 @@ export default class Home extends Component {
         this.setState({ movies: moviesQuery, apiConfig: configQuery });
     }
 
-    test = () => {
+    mapMovies = () => {
         if (this.state.movies.results.length > 0) {
             return (
                 <div className="row">
