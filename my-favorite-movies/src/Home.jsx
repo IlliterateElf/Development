@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import MovieItem from "./MovieItem";
 
 export default class Home extends Component {
     constructor(props) {
@@ -6,7 +7,9 @@ export default class Home extends Component {
 
         this.state = {
             apiKey: "6640078bed1c57de87f118d7a89399d3",
-            movies: [],
+            movies: {
+                results: []
+            },
             apiConfig: []
         }
     }
@@ -16,6 +19,9 @@ export default class Home extends Component {
             <div className="m-2">
                 <div>
                     <h1>Home</h1>
+                </div>
+                <div>
+                    {this.test()}
                 </div>
             </div>
         )
@@ -27,6 +33,20 @@ export default class Home extends Component {
         let moviesQuery = await movieResponse.json();
         let configQuery = require("./api_configuration.json");
         this.setState({ movies: moviesQuery, apiConfig: configQuery });
-        console.log(this.state.movies, this.state.apiConfig);
+    }
+
+    test = () => {
+        if (this.state.movies.results.length > 0) {
+            return (
+                <div className="row">
+                    {this.state.movies.results.map((mov) => {
+                        return <MovieItem
+                            key={mov.id}
+                            movie={mov}
+                        />
+                    })}
+                </div>
+            )
+        }
     }
 }
